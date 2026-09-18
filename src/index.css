@@ -147,13 +147,65 @@ a {
 }
 
 .filters {
+  padding: 10px 20px;
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+}
+
+.filters__mobile-bar {
+  display: none;
+}
+
+.filters__panel {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   align-items: end;
-  padding: 10px 20px;
-  background: #fff;
-  border-bottom: 1px solid var(--line);
+}
+
+.filters__toggle {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 10px 12px;
+  border: 1px solid #d8d1c6;
+  border-radius: 10px;
+  background: var(--panel);
+  color: var(--ink);
+  text-align: left;
+}
+
+.filters__toggle-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.filters__toggle-summary {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.filters__done {
+  flex-shrink: 0;
+  height: 42px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--navy);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
 }
 
 .filters__label {
@@ -648,21 +700,58 @@ body.is-site-dragging * {
   .app-header {
     align-items: flex-start;
     flex-direction: column;
-    padding: 12px 14px 10px;
+    padding: 10px 14px 8px;
   }
 
   .app-header__title {
-    font-size: 22px;
+    font-size: 20px;
+  }
+
+  .app-header__subtitle {
+    display: none;
   }
 
   .app-header__stats {
     flex-wrap: wrap;
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .filters {
+    padding: 8px 14px;
+  }
+
+  .filters__mobile-bar {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .filters__panel {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
     gap: 10px;
+    padding-top: 10px;
+  }
+
+  .filters--open .filters__panel {
+    display: flex;
+  }
+
+  .filters__search,
+  .filters__select {
+    flex: none;
+    width: 100%;
+  }
+
+  .filters__reset {
+    align-self: flex-start;
   }
 
   .workspace {
     grid-template-columns: 1fr;
-    grid-template-rows: minmax(0, 1fr) minmax(210px, 34vh);
+    grid-template-rows: minmax(0, 1fr) minmax(160px, 30vh);
   }
 
   .cart {
@@ -672,6 +761,14 @@ body.is-site-dragging * {
 
   .map-legend {
     display: none;
+  }
+
+  .leaflet-control-attribution {
+    font-size: 9px;
+    max-width: 55%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
