@@ -1,16 +1,20 @@
 import { memo, useCallback, useMemo, useState } from 'react'
 import { MapContainer, TileLayer } from 'react-leaflet'
 import {
+  CLUSTER_DISABLE_ZOOM,
   CLUSTER_RADIUS_PX,
   MAP_FIT_MAX_ZOOM,
   MAP_MAX_ZOOM,
   MAP_MIN_ZOOM,
+  MAP_TILE_ATTRIBUTION,
+  MAP_TILE_URL,
   SPIDERFY_DISTANCE_MULTIPLIER,
 } from '../constants.js'
 import { useInventory } from '../context/InventoryContext.jsx'
 import { createClusterIcon } from '../lib/icons.js'
 import { LEGEND_ITEMS } from '../utils/displayTypes.js'
 import { getCorridorPositions } from '../utils/inventory.js'
+import MapViewportSync from './MapViewportSync.jsx'
 import MarkerClusterGroup from './MarkerClusterGroup.jsx'
 import SiteMarker from './SiteMarker.jsx'
 
@@ -44,14 +48,20 @@ function MapView() {
         whenReady={handleMapReady}
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution={MAP_TILE_ATTRIBUTION}
+          url={MAP_TILE_URL}
+          maxZoom={MAP_MAX_ZOOM}
+          maxNativeZoom={19}
+          keepBuffer={4}
         />
+        <MapViewportSync />
         <MarkerClusterGroup
-          chunkedLoading
           showCoverageOnHover={false}
+          removeOutsideVisibleBounds={false}
+          zoomToBoundsOnClick={false}
           spiderfyOnMaxZoom
-          zoomToBoundsOnClick
+          spiderfyOnEveryZoom
+          disableClusteringAtZoom={CLUSTER_DISABLE_ZOOM}
           maxClusterRadius={CLUSTER_RADIUS_PX}
           spiderfyDistanceMultiplier={SPIDERFY_DISTANCE_MULTIPLIER}
           iconCreateFunction={createClusterIcon}

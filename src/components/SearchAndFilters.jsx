@@ -35,9 +35,8 @@ function SearchAndFilters() {
 
   const togglePanel = useCallback(() => {
     setOpen((current) => {
-      const next = !current
       notifyMapResize()
-      return next
+      return !current
     })
   }, [])
 
@@ -45,6 +44,12 @@ function SearchAndFilters() {
     resetFilters()
     notifyMapResize()
   }
+
+  const clearButton = hasActiveFilters ? (
+    <button type="button" className="filters__reset" onClick={handleReset}>
+      Clear filters
+    </button>
+  ) : null
 
   return (
     <section
@@ -62,6 +67,7 @@ function SearchAndFilters() {
           <span className="filters__toggle-label">Search & filters</span>
           <span className="filters__toggle-summary">{summary}</span>
         </button>
+        {clearButton ? <div className="filters__mobile-clear">{clearButton}</div> : null}
         {open ? (
           <button type="button" className="filters__done" onClick={closePanel}>
             Done
@@ -123,11 +129,7 @@ function SearchAndFilters() {
           </select>
         </label>
 
-        {hasActiveFilters ? (
-          <button type="button" className="filters__reset" onClick={handleReset}>
-            Clear filters
-          </button>
-        ) : null}
+        <div className="filters__desktop-clear">{clearButton}</div>
       </div>
     </section>
   )
